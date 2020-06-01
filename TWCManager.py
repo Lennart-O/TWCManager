@@ -2240,9 +2240,9 @@ class TWCSlave:
                     # timeLastAmpsOfferedChanged if the value of lastAmpsOffered was
                     # actually changed.
                     if(self.lastAmpsOffered == spikeAmpsToCancel6ALimit
-                       and now - self.timeLastAmpsOfferedChanged > 10):
+                       and now - self.timeLastAmpsOfferedChanged > 20):
                         # We've been offering the car spikeAmpsToCancel6ALimit
-                        # for over 10 seconds but it's still drawing at least
+                        # for over 20 seconds but it's still drawing at least
                         # 2A less than spikeAmpsToCancel6ALimit.  I saw this
                         # happen once when an error stopped the car from
                         # charging and when the error cleared, it was offered
@@ -2251,12 +2251,11 @@ class TWCSlave:
                         # case, the fix is to offer it lower amps.
                         if(debugLevel >= 1):
                             print(time_now() + ': Car stuck when offered spikeAmpsToCancel6ALimit.  Offering 2 less.')
-                        desiredAmpsOffered = spikeAmpsToCancel6ALimit - 2.0
-                    elif(now - self.timeLastAmpsOfferedChanged > 5):
+                    elif(now - self.timeLastAmpsOfferedChanged > 20):
                         # self.lastAmpsOffered hasn't gotten the car to draw
-                        # enough amps for over 5 seconds, so try
+                        # enough amps for over 20 seconds, so try
                         # spikeAmpsToCancel6ALimit
-                        desiredAmpsOffered = spikeAmpsToCancel6ALimit
+                        desiredAmpsOffered = desiredAmpsOffered #spike removed
                     else:
                         # Otherwise, don't change the value of lastAmpsOffered.
                         desiredAmpsOffered = self.lastAmpsOffered
@@ -2277,7 +2276,7 @@ class TWCSlave:
                     if(debugLevel >= 10):
                         print('Reduce amps: time - self.timeLastAmpsOfferedChanged ' +
                             str(int(now - self.timeLastAmpsOfferedChanged)))
-                    if(now - self.timeLastAmpsOfferedChanged < 5):
+                    if(now - self.timeLastAmpsOfferedChanged < 8):
                         desiredAmpsOffered = self.lastAmpsOffered
 
         # set_last_amps_offered does some final checks to see if the new
