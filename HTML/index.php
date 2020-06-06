@@ -374,11 +374,6 @@
                             }
                             else {
                                 print "Charging at " . $subStatus[2] . "A.";
-                                if($subStatus[3] - $subStatus[2] > 1.0) {
-                                    // Car is using over 1A less than is available, so print
-                                    // a note.
-                                    print " (" . $subStatus[3] . "A available)";
-                                }
                             }
                         }
                     }
