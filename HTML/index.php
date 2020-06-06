@@ -368,8 +368,7 @@
                                     }
                                 }
                                 else {
-                                    print "Finished charging, unplugged, or waking up."
-                                        . " (" . $subStatus[3] . "A available)";
+                                    print "Finished charging, unplugged, or waking up.";
                                 }
                             }
                             else {
